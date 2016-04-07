@@ -95,7 +95,8 @@
     _scrollView.delegate = self;
     _scrollView.showsVerticalScrollIndicator = NO;
     _scrollView.showsHorizontalScrollIndicator = NO;
-    _scrollView.frame = self.frame;
+//    _scrollView.frame = self.frame;
+    _scrollView.frame = self.bounds;
     _scrollView.backgroundColor = [UIColor clearColor];
     
     [self addSubview:_scrollView];
@@ -107,8 +108,11 @@
 
 - (void)setupFrame
 {
-    _scrollView.frame = self.frame;
-    self.backgroundImageView.frame = self.frame;
+//    _scrollView.frame = self.frame;
+//    self.backgroundImageView.frame = self.frame;
+    
+    _scrollView.frame = self.bounds;
+    self.backgroundImageView.frame = self.bounds;
  
     NSInteger dataCount = _elementSource.count;
     NSInteger totalRow = (dataCount % self.column) ? (dataCount / self.column + 1) : (dataCount / self.column);
@@ -134,7 +138,9 @@
                     _pageControl = [[UIPageControl alloc]init];
                 }
                 
-                _pageControl.frame =CGRectMake(0, _scrollView.frame.size.height-kPageControlHeight, kViewWidth, kPageControlHeight);
+//                _pageControl.frame =CGRectMake(0, _scrollView.frame.size.height-kPageControlHeight, kViewWidth, kPageControlHeight);
+                                _pageControl.frame =CGRectMake(0, self.frame.size.height-kPageControlHeight, self.frame.size.width, kPageControlHeight);
+//                _pageControl.backgroundColor = [UIColor greenColor];
                 _pageControl.numberOfPages = num;
                 _pageControl.currentPage = 0;
                 [_pageControl addTarget:self action:@selector(changePage:) forControlEvents:UIControlEventValueChanged];
@@ -235,8 +241,15 @@
 
 - (void)scrollViewDidEndDecelerating:(UIScrollView *)scrollView
 {
-    int p = _scrollView.contentOffset.x / 320;
-    _pageControl.currentPage = p;
+//    int p = _scrollView.contentOffset.x / 320;
+//    _pageControl.currentPage = p;
+    
+    CGFloat pageWidth = scrollView.frame.size.width;
+    int page = floor((scrollView.contentOffset.x - pageWidth / 2) / pageWidth) + 1;
+//    currentPageIndex=page;
+    
+    _pageControl.currentPage=(page);
+
 }
 
 
