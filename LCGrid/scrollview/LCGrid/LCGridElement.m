@@ -42,7 +42,7 @@
 
 - (void)dealloc
 {
-
+    NSLog(@"dealloc %s", object_getClassName(self));
 }
 
 

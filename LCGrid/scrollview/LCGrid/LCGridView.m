@@ -37,7 +37,7 @@
 
 @interface LCGridView() <UIScrollViewDelegate>
 
-@property (nonatomic, retain) UIImageView *backgroundImageView;
+@property (nonatomic, strong) UIImageView *backgroundImageView;
 
 @end
 
@@ -51,7 +51,7 @@
 
 - (void)dealloc
 {
-
+    NSLog(@"dealloc %s", object_getClassName(self));
 }
 
 

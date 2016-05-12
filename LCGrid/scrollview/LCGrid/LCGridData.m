@@ -32,6 +32,7 @@
 
 - (void)dealloc
 {
+    NSLog(@"dealloc %s", object_getClassName(self));
 }
 
 - (id)initWith:(NSString *)image label:(NSString *)label
