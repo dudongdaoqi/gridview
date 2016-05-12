@@ -42,11 +42,7 @@
 
 - (void)dealloc
 {
-    [_data release];
-    [_mainView release];
-    [_image release];
-    [_label release];
-    [super dealloc];
+
 }
 
 
@@ -65,7 +61,7 @@
     self = [super initWithFrame:frame];
     if (self)
     {
-        _data = [gridData retain];
+        _data = gridData ;
         // tap gesture for toggling the switch
         UITapGestureRecognizer *tapGesture = [[UITapGestureRecognizer alloc] initWithTarget:self
                                                                                      action:@selector(didTap:)];
@@ -82,7 +78,7 @@
 
 -(void) didTap:(UITapGestureRecognizer*)gesture
 {
-    self.backgroundColor = [UIColor colorWithRed:0.0078 green:0.6862 blue:1 alpha:1];
+    self.backgroundColor = [UIColor lightGrayColor];//[UIColor colorWithRed:0.0078 green:0.6862 blue:1 alpha:1];
     [self performSelector:@selector(getBlack:) withObject:self afterDelay:0.3];
     
     if (gesture.state == UIGestureRecognizerStateEnded)
@@ -102,24 +98,25 @@
     self.clipsToBounds = YES;
     
     UIView *v = [[UIView alloc]init];
-    self.mainView = v, [v release];
+    self.mainView = v;
     [self addSubview:self.mainView];
     
     UIImageView *image = [[UIImageView alloc]initWithImage:[UIImage imageNamed:_data.imageName]];
-    self.image = image, [image release];
+    self.image = image;
     [v addSubview:self.image];
     
     UILabel *label = [[UILabel alloc]init];
     label.text = _data.labelName;
     label.textAlignment = NSTextAlignmentCenter;
-    label.textColor = [UIColor whiteColor];
+//    label.textColor = [UIColor whiteColor]; // qmy3
+    label.textColor = [UIColor darkTextColor];
     label.backgroundColor = [UIColor clearColor];
     label.adjustsFontSizeToFitWidth = YES;
     if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPhone)
     {
         label.font = [UIFont systemFontOfSize:14];
     }
-    self.label = label, [label release];
+    self.label = label;
     [v addSubview:self.label];
 }
 

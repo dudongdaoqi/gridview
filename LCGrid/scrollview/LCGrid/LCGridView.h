@@ -26,9 +26,11 @@
 #import <UIKit/UIKit.h>
 #import "LCGridData.h"
 
+@class LCGridElement;
+
 @protocol LCGridViewDelegate <NSObject>
 
-- (void)touchAction:(NSString *)sender;
+- (void)touchAction:(LCGridElement *)sender;
 
 @end
 

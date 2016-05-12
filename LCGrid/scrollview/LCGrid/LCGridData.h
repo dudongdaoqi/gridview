@@ -27,8 +27,8 @@
 
 @interface LCGridData : NSObject
 
-@property (nonatomic, retain) NSString *imageName;
-@property (nonatomic, retain) NSString *labelName;
+@property (nonatomic, strong) NSString *imageName;
+@property (nonatomic, strong) NSString *labelName;
 
 - (id)initWith:(NSString *)image label:(NSString *)label;
 
