@@ -29,10 +29,10 @@
 
 @interface LCGridElement : UIControl <UIGestureRecognizerDelegate>
 
-@property (nonatomic, retain) LCGridData *data;
-@property (nonatomic, retain) UIView *mainView;
-@property (nonatomic, retain) UIImageView *image;
-@property (nonatomic, retain) UILabel *label;
+@property (nonatomic, strong) LCGridData *data;
+@property (nonatomic, strong) UIView *mainView;
+@property (nonatomic, strong) UIImageView *image;
+@property (nonatomic, strong) UILabel *label;
 
 - (id)initWithFrame:(CGRect)frame name:(LCGridData *)gridData;
 - (void)setupFrame;

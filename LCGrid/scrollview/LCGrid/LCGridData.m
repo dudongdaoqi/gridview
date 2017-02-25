@@ -32,17 +32,15 @@
 
 - (void)dealloc
 {
-    [_labelName release];
-    [_imageName release];
-    [super dealloc];
+    NSLog(@"dealloc %s", object_getClassName(self));
 }
 
 - (id)initWith:(NSString *)image label:(NSString *)label
 {
     self = [super init];
     if (self) {
-        _imageName = [image retain];
-        _labelName = [label retain];
+        _imageName = image;
+        _labelName = label;
     }
     return self;
 }

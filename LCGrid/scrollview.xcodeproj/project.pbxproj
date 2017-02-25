@@ -179,6 +179,11 @@
 				CLASSPREFIX = SrollView;
 				LastUpgradeCheck = 0460;
 				ORGANIZATIONNAME = lc;
+				TargetAttributes = {
+					4BA829E1184D006C0099E41C = {
+						DevelopmentTeam = W5VZJ29M6M;
+					};
+				};
 			};
 			buildConfigurationList = 4BA829DD184D006C0099E41C /* Build configuration list for PBXProject "scrollview" */;
 			compatibilityVersion = "Xcode 3.2";
@@ -301,10 +306,12 @@
 		4BA82A00184D006C0099E41C /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "scrollview/scrollview-Prefix.pch";
 				INFOPLIST_FILE = "scrollview/scrollview-Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 4.3;
+				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.gsdi3333os.test33333;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				TARGETED_DEVICE_FAMILY = "1,2";
 				WRAPPER_EXTENSION = app;
@@ -314,10 +321,12 @@
 		4BA82A01184D006C0099E41C /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "scrollview/scrollview-Prefix.pch";
 				INFOPLIST_FILE = "scrollview/scrollview-Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 4.3;
+				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.gsdi3333os.test33333;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				TARGETED_DEVICE_FAMILY = "1,2";
 				WRAPPER_EXTENSION = app;

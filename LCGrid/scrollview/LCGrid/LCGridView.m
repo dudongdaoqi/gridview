@@ -37,7 +37,7 @@
 
 @interface LCGridView() <UIScrollViewDelegate>
 
-@property (nonatomic, retain) UIImageView *backgroundImageView;
+@property (nonatomic, strong) UIImageView *backgroundImageView;
 
 @end
 
@@ -51,12 +51,7 @@
 
 - (void)dealloc
 {
-    [_scrollView release];
-    [_backgroundImageView release];
-    [_pageControl release];
-    [_elementSource release];
-    [_dataSource release];
-    [super dealloc];
+    NSLog(@"dealloc %s", object_getClassName(self));
 }
 
 
@@ -79,14 +74,13 @@
 {
     UIImageView *v = [[UIImageView alloc]initWithImage:[UIImage imageNamed:@"Sky.jpg"]];
     v.frame = self.bounds;
-    self.backgroundImageView = v,[v release];
+    self.backgroundImageView = v;
     [self addSubview:self.backgroundImageView];
 
     if (_dataSource.count <= 0 || self.column <= 0|| self.row <= 0)
     {
         UIAlertView *alert = [[UIAlertView alloc]initWithTitle:@"sorry" message:@"the data for the grid is wrong！" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
         [alert show];
-        [alert release];
         return;
     }
     
@@ -95,7 +89,8 @@
     _scrollView.delegate = self;
     _scrollView.showsVerticalScrollIndicator = NO;
     _scrollView.showsHorizontalScrollIndicator = NO;
-    _scrollView.frame = self.frame;
+//    _scrollView.frame = self.frame;
+    _scrollView.frame = self.bounds;
     _scrollView.backgroundColor = [UIColor clearColor];
     
     [self addSubview:_scrollView];
@@ -107,8 +102,11 @@
 
 - (void)setupFrame
 {
-    _scrollView.frame = self.frame;
-    self.backgroundImageView.frame = self.frame;
+//    _scrollView.frame = self.frame;
+//    self.backgroundImageView.frame = self.frame;
+    
+    _scrollView.frame = self.bounds;
+    self.backgroundImageView.frame = self.bounds;
  
     NSInteger dataCount = _elementSource.count;
     NSInteger totalRow = (dataCount % self.column) ? (dataCount / self.column + 1) : (dataCount / self.column);
@@ -134,7 +132,11 @@
                     _pageControl = [[UIPageControl alloc]init];
                 }
                 
-                _pageControl.frame =CGRectMake(0, _scrollView.frame.size.height-kPageControlHeight, kViewWidth, kPageControlHeight);
+//                _pageControl.frame =CGRectMake(0, _scrollView.frame.size.height-kPageControlHeight, kViewWidth, kPageControlHeight);
+                                _pageControl.frame =CGRectMake(0, self.frame.size.height-kPageControlHeight, self.frame.size.width, kPageControlHeight);
+//                _pageControl.backgroundColor = [UIColor greenColor];
+                _pageControl.pageIndicatorTintColor = [UIColor lightGrayColor];
+                _pageControl.currentPageIndicatorTintColor = [UIColor colorWithRed:1.000 green:0.557 blue:0.178 alpha:1.000];
                 _pageControl.numberOfPages = num;
                 _pageControl.currentPage = 0;
                 [_pageControl addTarget:self action:@selector(changePage:) forControlEvents:UIControlEventValueChanged];
@@ -146,6 +148,7 @@
                 NSRange rang = NSMakeRange(i * self.row * self.column, ((i != num-1 )? (self.row * self.column): (dataCount-(num-1)*self.row*self.column)));
                 NSMutableIndexSet *_index = [NSMutableIndexSet indexSetWithIndexesInRange:rang];
                 NSArray *arr = [_elementSource objectsAtIndexes:_index];
+
 
                 float height = CGRectGetHeight(self.frame);
                 float width = CGRectGetWidth(self.frame);
@@ -221,22 +224,31 @@
         [ele addTarget:self action:@selector(btnDown:) forControlEvents:UIControlEventTouchUpInside];
         [_elementSource addObject:ele];
         [_scrollView addSubview:ele];
-        [ele release];
+        
+        ele.tag = i;
     }
 }
 
 - (void)btnDown:(LCGridElement *)ele
 {
     if ([self.delegate respondsToSelector:@selector(touchAction:)]) {
-        [self.delegate touchAction:ele.data.labelName];
+//        [self.delegate touchAction:ele.data.labelName];
+        [self.delegate touchAction:ele];
     }
 }
 
 
 - (void)scrollViewDidEndDecelerating:(UIScrollView *)scrollView
 {
-    int p = _scrollView.contentOffset.x / 320;
-    _pageControl.currentPage = p;
+//    int p = _scrollView.contentOffset.x / 320;
+//    _pageControl.currentPage = p;
+    
+    CGFloat pageWidth = scrollView.frame.size.width;
+    int page = floor((scrollView.contentOffset.x - pageWidth / 2) / pageWidth) + 1;
+//    currentPageIndex=page;
+    
+    _pageControl.currentPage=(page);
+
 }
 
 
